@@ -2,6 +2,4 @@
 
 An analog fattener audio plugin.
 
-![Plugin Screenshot](plugin_screenshot.png)
-
-*(Screenshot to be added once the build issue is resolved.)*
+*Screenshot generation is currently blocked by a persistent build issue. A screenshot will be added as soon as the issue is resolved.*

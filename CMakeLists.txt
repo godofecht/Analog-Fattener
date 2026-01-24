@@ -1,6 +1,19 @@
 cmake_minimum_required(VERSION 3.15)
 project(AnalogFattener VERSION 1.0.0)
 
+# Find X11 and add its include directory
+find_package(X11 REQUIRED)
+if (X11_FOUND)
+  include_directories(${X11_INCLUDE_DIR})
+endif()
+
+# Find GTK3 and WebKitGTK and add their include directories and libraries
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(DEPS REQUIRED gtk+-3.0 webkit2gtk-4.1)
+if (DEPS_FOUND)
+  include_directories(${DEPS_INCLUDE_DIRS})
+endif()
+
 # Set JUCE options before adding the subdirectory
 set(JUCE_GUI_BASICS_INCLUDE_X11 1 CACHE BOOL "Force include of X11 headers")
 
@@ -18,14 +31,13 @@ juce_add_plugin(AnalogFattener
     PLUGIN_MANUFACTURER_CODE "MyCo"
     PLUGIN_CODE "AbCd"
     AUDIO_PLUGIN_SOURCE_FILES ${SOURCE_FILES}
+    PLUGIN_FORMATS "Standalone;VST3"
     IS_SYNTH FALSE
     NEEDS_MIDI_INPUT TRUE
     NEEDS_MIDI_OUTPUT FALSE
     IS_MIDI_EFFECT FALSE
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE
     COPY_PLUGIN_AFTER_BUILD TRUE
-    INSTALL_VST3 TRUE
-    INSTALL_AU TRUE
 )
 
 # Link all required libraries
@@ -44,4 +56,5 @@ target_link_libraries(AnalogFattener PRIVATE
     juce::juce_gui_basics
     juce::juce_gui_extra
     juce::juce_opengl
+    ${DEPS_LIBRARIES}
 )
