@@ -87,15 +87,8 @@ void AnalogFattenerAudioProcessorEditor::paint (Graphics& g)
 
 void AnalogFattenerAudioProcessorEditor::resized()
 {
-    const int crankSize = 250;
-    crankSlider.setBounds(getWidth() / 2 - crankSize / 2, getHeight() / 2 - 200, crankSize, crankSize);
-
-    const int margin = 20;
-    const int knobSize = 80;
-    const int yPos = 350;
-    const int spaceBetweenKnobs = (getWidth() - 2 * margin - 3 * knobSize) / 2;
-
-    colorSlider.setBounds(margin, yPos, knobSize, knobSize);
-    boostSlider.setBounds(margin + knobSize + spaceBetweenKnobs, yPos, knobSize, knobSize);
-    limitSlider.setBounds(margin + 2 * (knobSize + spaceBetweenKnobs), yPos, knobSize, knobSize);
+    crankSlider.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 150, 200, 200);
+    colorSlider.setBounds(border-35,(getHeight()-border-35),lowerKnobSize,lowerKnobSize);
+    boostSlider.setBounds(getWidth()/2-35,getHeight()-border-35,lowerKnobSize,lowerKnobSize);
+    limitSlider.setBounds(getWidth()-border-35,(getHeight()-border-35),lowerKnobSize,lowerKnobSize);
 }

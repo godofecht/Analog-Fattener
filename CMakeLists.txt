@@ -1,15 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
 project(AnalogFattener VERSION 1.0.0)
 
-# Find X11 and add its include directory
-find_package(X11 REQUIRED)
-if (X11_FOUND)
-  include_directories(${X11_INCLUDE_DIR})
-endif()
-
-# Find GTK3 and WebKitGTK and add their include directories and libraries
+# Find all required packages
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(DEPS REQUIRED gtk+-3.0 webkit2gtk-4.1)
+pkg_check_modules(DEPS REQUIRED alsa x11 xext xinerama freetype2 fontconfig gtk+-3.0 webkit2gtk-4.1)
 if (DEPS_FOUND)
   include_directories(${DEPS_INCLUDE_DIRS})
 endif()
