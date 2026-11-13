@@ -38,7 +38,7 @@ Computer Science and Maths:
 
 You do not need to download JUCE separately. It is included as a git submodule (a link to another repository, fetched along with this one). The submodule points to JUCE 8.0.12.
 
-The CMake build in this repo does not compile yet. See "Project status". These are the intended steps:
+Steps:
 
 1. Download the code and JUCE:
 
@@ -53,6 +53,8 @@ The CMake build in this repo does not compile yet. See "Project status". These a
    cmake -B build
    cmake --build build
    ```
+
+   This builds a VST3 plugin, an AU plugin (macOS only) and a standalone app. The first build compiles JUCE too, so it takes a few minutes. The standalone app is inside `build/AnalogFattener_artefacts/`, in a folder called `Standalone`, and runs without a DAW.
 
 3. The build is set to copy the plugin to your system's plugin folder (`COPY_PLUGIN_AFTER_BUILD TRUE`). Rescan plugins in your DAW and add **AnalogFattener** to a track.
 
@@ -130,13 +132,12 @@ Further details from the code:
 - `const1 = colorValue / 200 * π` and `const2 = sin(const1)`. Dividing by `const2` normalises the curve so an input of 1 still gives an output of 1.
 - `amp_dB = 8.6562` converts natural log to decibels (close to 20 / ln 10). `baseline_threshold_dB = -5.0`, so the knee starts 5 dB below the Limit setting. The knee constants are `a = 1.017` and `b = -0.025`.
 - The output is `exp(dBL / amp_dB)` with the sign of the original input sample.
-- The CMake target uses `juce_add_plugin` with `COMPANY_NAME "MyCompany"`, `PLUGIN_CODE "AbCd"`, `INSTALL_VST3 TRUE` and `INSTALL_AU TRUE`.
+- The CMake target uses `juce_add_plugin` with `FORMATS VST3 AU Standalone`, `COMPANY_NAME "MyCompany"` and `PLUGIN_CODE "AbCd"`. `juce_generate_juce_header` creates the `JuceHeader.h` that the sources include as `<JuceHeader.h>`.
 
 ## Project status
 
 The DSP code dates from 2020. A CMake build and UI layout were added in January 2026. Known problems:
 
-- The CMake build will not compile as committed. The source files include `../JuceLibraryCode/JuceHeader.h`, which is not in the repo, and `CMakeLists.txt` does not generate a JUCE header.
 - The `.jucer` file asks for plugin formats that current JUCE no longer supports (RTAS) or that need extra SDKs (VST2, AAX).
 - The knob values are plain variables. A DAW cannot automate them, and they are not saved with a project.
 - The Limit knob shows -3 dB when the plugin opens, but the processor starts with 0 dB until you move the knob.
