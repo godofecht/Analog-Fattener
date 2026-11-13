@@ -67,11 +67,13 @@ public:
     float const1 = colorValue / 200 * M_PI;
     float const2 = sin(colorValue / 200 * M_PI);
 
+    // Members are initialised in the order they are declared, so
+    // baseline_threshold_dB must come before threshold_dB, which reads it.
+    float baseline_threshold_dB = -5.0;
     float threshold_dB = baseline_threshold_dB + limitValue;
     float over_dB;
 
     float amp_dB = 8.6562;
-    float baseline_threshold_dB = -5.0;
     float a = 1.017;
     float b = -0.025;
 
