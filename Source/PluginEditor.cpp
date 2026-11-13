@@ -26,10 +26,12 @@ AnalogFattenerAudioProcessorEditor::AnalogFattenerAudioProcessorEditor(AnalogFat
     boostSlider.setRange(0,9,0.1);
     limitSlider.setRange(-9,0,0.1);
 
-    crankSlider.setValue(1);
-    colorSlider.setValue(1.0);
-    boostSlider.setValue(0.0);
-    limitSlider.setValue(-3.0);
+    // Show the processor's current values. This runs before the listeners are
+    // added, so it does not write anything back to the processor.
+    crankSlider.setValue(processor.crankValue, dontSendNotification);
+    colorSlider.setValue(processor.colorValue, dontSendNotification);
+    boostSlider.setValue(processor.boostValue, dontSendNotification);
+    limitSlider.setValue(processor.limitValue, dontSendNotification);
 
 
     crankSlider.addListener(this);

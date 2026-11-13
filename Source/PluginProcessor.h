@@ -59,10 +59,12 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 
+    // Starting values for the four knobs. The editor reads these when it opens,
+    // so the knobs always show what the processor is using.
     float crankValue = 1;
     float colorValue = 1;
     float boostValue = 0;
-    float limitValue = 0;
+    float limitValue = -3;
 
     float const1 = colorValue / 200 * M_PI;
     float const2 = sin(colorValue / 200 * M_PI);
