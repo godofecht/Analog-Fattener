@@ -140,7 +140,6 @@ The DSP code dates from 2020. A CMake build and UI layout were added in January 
 
 - The `.jucer` file asks for plugin formats that current JUCE no longer supports (RTAS) or that need extra SDKs (VST2, AAX).
 - The knob values are plain variables. A DAW cannot automate them, and they are not saved with a project.
-- The Limit knob shows -3 dB when the plugin opens, but the processor starts with 0 dB until you move the knob.
 - There is no screenshot or audio example yet.
 
 ## Licence
